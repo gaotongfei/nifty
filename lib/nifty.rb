@@ -1,4 +1,4 @@
-require "nifty/version"
+require 'nifty/version'
 
 module Nifty
   class Error < StandardError; end
