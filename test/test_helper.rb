@@ -32,7 +32,6 @@ module ActiveRecordTest
   end
 
   class User < ::ActiveRecord::Base
-    include Nifty::ScopingMethods
     self.table_name = 'users'
   end
 end

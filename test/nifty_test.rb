@@ -32,12 +32,4 @@ class NiftyTest < Minitest::Test
       assert_equal 'password0', user.password_digest
     end
   end
-
-  def test_nifty_scope_method
-    ActiveRecordTest::User.nifty.find_each do |user|
-      assert user.username
-      assert user.email
-      assert user.password_digest
-    end
-  end
 end

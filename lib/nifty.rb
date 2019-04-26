@@ -1,6 +1,5 @@
 require 'nifty/version'
 require 'nifty/relation_methods'
-require 'nifty/scoping_methods'
 require 'nifty/result'
 require 'nifty/result_handler'
 require 'nifty/inspector'
