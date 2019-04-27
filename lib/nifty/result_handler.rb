@@ -36,7 +36,7 @@ module Nifty
         column_names.each do |column_name|
           row[column_name] = r[column_name]
         end
-        aoh << Nifty::Result.build(row)
+        aoh << OpenStruct.new(row)
       end
       aoh
     end
@@ -50,7 +50,7 @@ module Nifty
         column_names.each_with_index do |column_name, index|
           row[column_name] = r[index]
         end
-        aoh << Nifty::Result.build(row)
+        aoh << OpenStruct.new(row)
       end
       aoh
     end

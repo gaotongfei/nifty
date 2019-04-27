@@ -32,4 +32,12 @@ class NiftyTest < Minitest::Test
       assert_equal 'password0', user.password_digest
     end
   end
+
+  def test_nifty_batches
+    count = 0
+    ActiveRecordTest::User.all.nifty_batches(batch_size: 1) do |user|
+      count += 1
+    end
+    assert_equal 5, count
+  end
 end
