@@ -10,7 +10,10 @@ module Nifty
       SQL
 
       nifty_result = begin
-        ::ActiveRecord::Base.connection_pool.with_connection do |conn|
+        # Models can establish a connection with a db server that does not live as the main db server.
+        # Instead of using ActiveRecord::Base.connection_pool, use the connection a model specifies if it has
+        # one, to support multiple db.
+        self.connection_pool.with_connection do |conn|
           result = conn.execute(sql)
           Nifty::ResultHandler.new(::ActiveRecord::Base.connection_config).handle(result, column_names)
         end
