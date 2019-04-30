@@ -11,13 +11,19 @@ Bundler.setup(:default, :test)
 require 'active_record'
 
 module ActiveRecordTest
-  def self.setup
-    establish_conn
+  def self.setup(db_adapter: 'sqlite3')
+    ActiveRecord::Migration.verbose = false
+    establish_conn(db_adapter)
     define_schema
   end
 
-  def self.establish_conn
-    ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
+  def self.establish_conn(db_adapter)
+    case db_adapter
+    when 'sqlite3'
+      ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
+    when 'mysql2'
+      ActiveRecord::Base.establish_connection(adapter: 'mysql2', database: 'nifty_test', username: ENV['MYSQL_USERNAME'], password: ENV['MYSQL_PASSWORD'])
+    end
   end
 
   def self.define_schema
@@ -32,6 +38,7 @@ module ActiveRecordTest
   end
 
   class User < ::ActiveRecord::Base
+    extend Nifty::ClassMethods
     self.table_name = 'users'
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nifty
   class ResultHandler
     # @param :result adapter execution result
@@ -36,7 +38,7 @@ module Nifty
         column_names.each do |column_name|
           row[column_name] = r[column_name]
         end
-        aoh << OpenStruct.new(row)
+        aoh << row
       end
       aoh
     end
@@ -50,7 +52,7 @@ module Nifty
         column_names.each_with_index do |column_name, index|
           row[column_name] = r[index]
         end
-        aoh << OpenStruct.new(row)
+        aoh << row
       end
       aoh
     end

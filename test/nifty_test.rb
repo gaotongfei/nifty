@@ -3,10 +3,14 @@ require 'test_helper'
 
 class NiftyTest < Minitest::Test
   def setup
-    ::ActiveRecordTest.setup
+    ::ActiveRecordTest.setup(db_adapter: 'sqlite3')
     5.times do |i|
       ActiveRecordTest::User.create(username: "username#{i}", email: "email#{i}", password_digest: "password#{i}")
     end
+  end
+
+  def teardown
+    ActiveRecord::Migration.drop_table(:users)
   end
 
   def test_that_it_has_a_version_number
@@ -19,17 +23,17 @@ class NiftyTest < Minitest::Test
 
   def test_query_all
     ActiveRecordTest::User.all.nifty.each_with_index do |user, index|
-      assert_equal "username#{index}", user.username
-      assert_equal "email#{index}", user.email
-      assert_equal "password#{index}", user.password_digest
+      assert_equal "username#{index}", user['username']
+      assert_equal "email#{index}", user['email']
+      assert_equal "password#{index}", user['password_digest']
     end
   end
 
   def test_query_where
     ActiveRecordTest::User.where(username: 'test0').nifty.each do |user|
-      assert_equal 'username0', user.username
-      assert_equal 'email0', user.email
-      assert_equal 'password0', user.password_digest
+      assert_equal 'username0', user['username']
+      assert_equal 'email0', user['email']
+      assert_equal 'password0', user['password_digest']
     end
   end
 
@@ -39,5 +43,11 @@ class NiftyTest < Minitest::Test
       count += 1
     end
     assert_equal 5, count
+  end
+
+  def test_nifty_find
+    ActiveRecordTest::User.all.each do |user|
+      assert ActiveRecordTest::User.nifty_find(user.id)
+    end
   end
 end
