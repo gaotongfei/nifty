@@ -8,7 +8,7 @@ A alternative light weight Rails ActiveRecord query result builder using Ruby Ha
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'nifty'
+gem 'nifty', git: 'https://github.com/gaotongfei/nifty'
 ```
 
 And then execute:
