@@ -1,6 +1,6 @@
 # Nifty
 
-A alternative light weight Rails ActiveRecord query result builder using Ruby Hash object.
+A light weight Rails ActiveRecord query result builder using Ruby Hash object.
 
 
 ## Installation
